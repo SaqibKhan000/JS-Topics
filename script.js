@@ -1,8 +1,7 @@
 
 
 
-const user = {
-  name: "M Saqib Khan"
-};
+let x = 1;
+let y = x++;
 
-console.log(user.address?.city);
+console.log(x, y);
