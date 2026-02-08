@@ -1,7 +1,7 @@
 
 
 
-let x = 1;
-let y = x++;
+const arr1 = [1, 2, 3];
+const arr2 = [...arr1, 4, 5];
 
-console.log(x, y);
+console.log(arr2);
