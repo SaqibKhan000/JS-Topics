@@ -3,7 +3,4 @@
 
 
 
-
-
-let isLogin = false;
-let msg = isLogin ? "Welcome" : "Please login";
+console.log(typeof null);
