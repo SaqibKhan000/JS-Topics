@@ -1,6 +1,18 @@
 
 
 
+function outer() {
+  let count = 0;
 
+  function inner() {
+    count++;
+    console.log(count);
+  }
 
-console.log( "2" + "2" - "2" ); // 20
+  return inner;
+}
+
+const counter = outer();
+counter(); // 1
+counter(); // 2
+counter(); // 3
