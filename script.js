@@ -3,6 +3,4 @@
 
 
 
-console.log(a); // ❌
-
-var a = 'M Saqib Khan';
+console.log(typeof NaN)
