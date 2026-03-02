@@ -1,6 +1,9 @@
 
 
 
+const value = new Set([1, 2, 3]);
 
+value.add(1);
 
-console.log(typeof NaN)
+const result = value.size;
+console.log(result);
