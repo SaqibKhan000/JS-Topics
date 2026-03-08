@@ -1,9 +1,12 @@
 
 
 
-const value = new Set([1, 2, 3]);
+const user = {
+    myName: "Saqib",
+    sayName: () => {
+        console.log(this.myName);
+    }
+};
 
-value.add(1);
+user.sayName();
 
-const result = value.size;
-console.log(result);
