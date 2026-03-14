@@ -1,13 +1,203 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A beautiful popup example built with HTML, CSS, and JS.">
+    <title>Stunning Popup Example</title>
+    <!-- Google Fonts for modern typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --text-color: #f8fafc;
+            --popup-bg: rgba(30, 41, 59, 0.6);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow: hidden; /* Prevent scrolling */
+        }
+
+        /* Full page section */
+        .section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: radial-gradient(circle at top left, #1e293b 0%, #0f172a 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Decorative Background Elements */
+        .bg-blob {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.3;
+            z-index: 0;
+            top: -100px;
+            left: -100px;
+            animation: float 10s ease-in-out infinite;
+        }
+
+        .bg-blob-2 {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: linear-gradient(135deg, #ec4899, #8b5cf6);
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.2;
+            z-index: 0;
+            bottom: -150px;
+            right: -100px;
+            animation: float 12s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(30px, 30px) scale(1.1); }
+            100% { transform: translate(0, 0) scale(1); }
+        }
+
+        /* The Button */
+        #openPopupBtn {
+            position: relative;
+            z-index: 10;
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: white;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            border: none;
+            border-radius: 9999px;
+            cursor: pointer;
+            box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.5);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            outline: none;
+        }
+
+        #openPopupBtn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 20px 30px -10px rgba(139, 92, 246, 0.7);
+        }
+
+        #openPopupBtn:active {
+            transform: translateY(1px);
+        }
+
+        /* Popup Overlay (Glassmorphism) */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 1000;
+        }
+
+        .popup-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Popup Content Box */
+        .popup-content {
+            background: var(--popup-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 3rem;
+            max-width: 450px;
+            width: 90%;
+            text-align: center;
+            transform: translateY(40px) scale(0.9);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(255, 255, 255, 0.05);
+        }
+
+        .popup-overlay.active .popup-content {
+            transform: translateY(0) scale(1);
+        }
+
+        .popup-title {
+            margin-top: 0;
+            margin-bottom: 1rem;
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #60a5fa, #c084fc, #f472b6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .popup-text {
+            line-height: 1.6;
+            color: #cbd5e1;
+            margin-bottom: 0;
+            font-size: 1.05rem;
+        }
+    </style>
 </head>
 <body>
-  
 
-  <script src="script.js"></script>
+    <!-- Main Section -->
+    <div class="section" id="mainSection">
+        <div class="bg-blob"></div>
+        <div class="bg-blob-2"></div>
+        
+        <button id="openPopupBtn">Show Magic Popup</button>
+    </div>
+
+    <!-- Popup Overlay -->
+    <div id="popupOverlay" class="popup-overlay">
+        <div class="popup-content" id="popupContent">
+            <h2 class="popup-title">Awesome Popup!</h2>
+            <p class="popup-text">Click outside this card (on the background) to close the popup. It uses a modern glassmorphism design with smooth CSS animations.</p>
+        </div>
+    </div>
+
+    <script>
+        const openBtn = document.getElementById('openPopupBtn');
+        const popupOverlay = document.getElementById('popupOverlay');
+        const popupContent = document.getElementById('popupContent');
+
+        // Stop propagation when clicking on the content inside popup, so it doesn't reach the document
+        popupContent.addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
+
+        // Open popup and stop propagation so document click doesn't immediately close it
+        openBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            popupOverlay.classList.add('active');
+        });
+
+        // Any click on the document (which includes the overlay, but NOT the popup content due to stopPropagation) will close it
+        document.addEventListener('click', () => {
+            if (popupOverlay.classList.contains('active')) {
+                popupOverlay.classList.remove('active');
+            }
+        });
+    </script>
 </body>
 </html>
