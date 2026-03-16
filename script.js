@@ -1,8 +1,12 @@
 
 
-const myArray = [1, 2, 3];
-myArray.name = "Saqib";
-myArray.age = 18
 
-console.log(myArray); 
-console.log(myArray.length); 
+
+let buttons = document.querySelector('.buttons');
+
+buttons.addEventListener('click', (e) => {
+    if(e.target.tagName === 'BUTTON'){
+       alert('I am button');
+    }
+})
+
