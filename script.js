@@ -1,4 +1,11 @@
 
 
-const obj = {};
-const result = "toString" in obj;
+
+
+console.log("Start");
+
+setTimeout(() => {
+  console.log("Hello");
+}, 0);
+
+console.log("End");
