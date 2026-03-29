@@ -2,10 +2,4 @@
 
 
 
-console.log("Start");
-
-setTimeout(() => {
-  console.log("Hello");
-}, 0);
-
-console.log("End");
+console.log(Object.is(+0, -0))
