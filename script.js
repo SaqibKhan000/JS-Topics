@@ -1,6 +1,14 @@
 
 
 
-const arr = [10, 20, 30, 40];
+    const cart = [
+    { name: "Shirt", price: 500 },
+    { name: "Shoes", price: 1500 },
+    { name: "Cap", price: 300 }
+    ];
 
-console.log(arr.indexOf(50));
+    const total = cart.reduce((acc, item) => {
+    return acc + item.price;
+    }, 0);
+
+    console.log(total);
